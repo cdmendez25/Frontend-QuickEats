@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import compIcon from '../assets/Preview.png'
 
 export default function LoginView() {
   const [form, setForm] = useState({ email: '', password: '' });
@@ -31,30 +32,33 @@ export default function LoginView() {
     }
   };
 
+  <img src={compIcon} alt="Company Icon" className="login-icon" />
+
   return (
     <div className="login-box">
-      <h1>Welcome!</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          name="email"
-          placeholder="Username"
-          value={form.email}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={handleChange}
-          required
-        />
-        {error && <p className="error">{error}</p>}
-        <button type="submit">Log in</button>
-      </form>
-      <p><a href="#">Forgot your password?</a></p>
-    </div>
+    <img src={compIcon} alt="Company Icon" className="login-icon" />
+    <h1>Welcome!</h1>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="email"
+        name="email"
+        placeholder="Username"
+        value={form.email}
+        onChange={handleChange}
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        value={form.password}
+        onChange={handleChange}
+        required
+      />
+      {error && <p className="error">{error}</p>}
+      <button type="submit">Log in</button>
+    </form>
+    <p><a href="#">Forgot your password?</a></p>
+  </div>
   );
 }
