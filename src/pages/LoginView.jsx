@@ -1,11 +1,18 @@
+<<<<<<< HEAD
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import compIcon from '../assets/Preview.png'
+=======
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import "./LoginView.css";
+>>>>>>> 19220ce91f994ac2aaa0032a95576161376b0074
 
 export default function LoginView() {
-  const [form, setForm] = useState({ email: '', password: '' });
-  const [error, setError] = useState('');
+  const [form, setForm] = useState({ username: "", password: "" });
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleChange = e => {
@@ -16,17 +23,14 @@ export default function LoginView() {
     e.preventDefault();
     try {
       const res = await axios.post("http://localhost:3001/auth/login", form);
-      const token = res.data.token;
-      localStorage.setItem("token", token);
+      const { token, role } = res.data;
 
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      if (payload.role === "pos") {
-        navigate("/dashboard-pos");
-      } else if (payload.role === "customer") {
-        navigate("/dashboard-customer");
-      } else {
-        setError("Rol no reconocido.");
-      }
+      localStorage.setItem("token", token);
+      localStorage.setItem("role", role);
+
+      if (role === "customer") navigate("/dashboard-customer");
+      else if (role === "pos") navigate("/dashboard-pos");
+      else setError("Rol desconocido");
     } catch {
       setError("Credenciales inválidas");
     }
@@ -35,6 +39,7 @@ export default function LoginView() {
   <img src={compIcon} alt="Company Icon" className="login-icon" />
 
   return (
+<<<<<<< HEAD
     <div className="login-box">
     <img src={compIcon} alt="Company Icon" className="login-icon" />
     <h1>Welcome!</h1>
@@ -60,5 +65,31 @@ export default function LoginView() {
     </form>
     <p><a href="#">Forgot your password?</a></p>
   </div>
+=======
+    <div className="login-container">
+      <form className="login-card" onSubmit={handleSubmit}>
+        <h1>Welcome!</h1>
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          value={form.username}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={form.password}
+          onChange={handleChange}
+          required
+        />
+        <button type="submit">Log in</button>
+        {error && <p className="error-text">{error}</p>}
+        <a href="#" className="forgot-password">Forgot your password?</a>
+      </form>
+    </div>
+>>>>>>> 19220ce91f994ac2aaa0032a95576161376b0074
   );
 }
