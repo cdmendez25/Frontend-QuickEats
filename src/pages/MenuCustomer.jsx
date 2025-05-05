@@ -1,34 +1,67 @@
-import React from 'react';
-import './MenuCustomer.css';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import '../../styles/MenuCustomer.css';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 export default function MenuCustomer() {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [restaurant, setRestaurant] = useState(null);
+  const [dishes, setDishes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchRestaurantData = async () => {
+      try {
+        setLoading(true);
+        const restaurantResponse = await axios.get(`http://localhost:3001/restaurants/${id}`);
+        setRestaurant(restaurantResponse.data);
+        setDishes(restaurantResponse.data.dishes || []);
+        setLoading(false);
+      } catch (err) {
+        console.error('Error al cargar datos del restaurante:', err);
+        setError('No se pudo cargar la información del restaurante');
+        setLoading(false);
+      }
+    };
+
+    fetchRestaurantData();
+  }, [id]);
+
+  if (loading) return <div className="menu-customer-container">Cargando menú...</div>;
+  if (error) return <div className="menu-customer-container">Error: {error}</div>;
+  if (!restaurant) return <div className="menu-customer-container">No se encontró el restaurante</div>;
 
   return (
     <div className="menu-customer-container">
       <header className="menu-header">
-        <h1>Nombre del restaurante</h1>
-        <p>Calificación del restaurante</p>
+        <h1>{restaurant.name}</h1>
+        <p>⭐ {restaurant.rating} - {restaurant.cuisine}</p>
       </header>
 
       <div className="menu-list">
-        {[...Array(4)].map((_, i) => (
-          <div key={i} className="menu-card">
+        {dishes.map((dish) => (
+          <div key={dish.id} className="menu-card">
             <div className="menu-image"></div>
             <div className="menu-info">
-              <strong>Nombre del producto</strong>
-              <p>Breve Descripción</p>
-              <p>Precio</p>
+              <strong>{dish.name}</strong>
+              <p>{dish.description}</p>
+              <p>${dish.price.toLocaleString()}</p>
             </div>
-            <button className="add-button">Add</button>
+            <button 
+              className="add-button" 
+              onClick={() => navigate(`/dish/${dish.id}`)}
+            >
+              Ver detalle
+            </button>
           </div>
         ))}
       </div>
 
       <footer className="menu-footer">
-        <button className="back-button" onClick={() => navigate(-1)}>Back ↩</button>
-        <button className="cart-button" onClick={() => navigate('/cart')}>Pay 🛒</button>
+        <button className="back-button" onClick={() => navigate(-1)}>Volver ↩</button>
+        <button className="cart-button" onClick={() => navigate('/cart')}>Carrito 🛒</button>
       </footer>
     </div>
   );

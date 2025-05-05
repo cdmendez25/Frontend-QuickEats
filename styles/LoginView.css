@@ -1,0 +1,119 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('/src/assets/img2.avif');
+  background-size: cover;
+  background-position: 40% -80px;
+}
+
+.login-card {
+  background: linear-gradient(to bottom, #184C8B, #091355);
+  padding: 2rem;
+  border-radius: 20px;
+  width: 425px;
+  color: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-card h1 {
+  text-align: center;
+  color: #facc15;
+  margin-bottom: 1.5rem;
+}
+
+.login-card input {
+  font-family: 'Nunito Sans', sans-serif;
+  width: 70%;
+  padding: 12px;
+  border-radius: 10rem;
+  border: none;
+  margin-bottom: 1rem;
+}
+
+.login-card button {
+  font-family: 'Nunito Sans', sans-serif;
+  width: 70%;
+  padding: 10px;
+  background-color: #facc15;
+  color: #1e3a8a;
+  border: none;
+  border-radius: 10rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1.5rem;
+}
+
+.login-card button:hover {
+  background-color: #cba717;
+}
+
+.error-text {
+  color: #d91717;
+  font-size: 0.85rem;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.forgot-password {
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+.password-container {
+  position: relative;
+  width: 70%;
+  margin-bottom: 1rem;
+}
+
+.password-container input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10rem;
+  border: none;
+  margin-bottom: 0;
+  position: relative;
+  left: -10px;
+}
+
+.toggle-password-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #facc15;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  color: #1e3a8a;
+  font-size: 0.7rem;
+  padding: 4px 10px;
+  font-weight: bold;
+  margin: 0;
+  width: auto;
+  height: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.toggle-password-btn:hover {
+  background-color: #cba717;
+}
+
+/* Sobrescribir el estilo general de botones para este botón específico */
+.login-card .toggle-password-btn {
+  width: auto;
+  margin-top: 0;
+}

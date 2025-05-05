@@ -1,0 +1,98 @@
+.restaurant-list-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+.restaurant-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.restaurant-list-header h1 {
+  color: #184C8B;
+  margin: 0;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.logout-button, .order-history-button {
+  background-color: #facc15;
+  color: #1e3a8a;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.restaurant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.restaurant-card {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.restaurant-card:hover {
+  transform: translateY(-5px);
+}
+
+.restaurant-image {
+  height: 180px;
+  background-color: #ddd;
+}
+
+.restaurant-info {
+  padding: 15px;
+}
+
+.restaurant-info h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #184C8B;
+}
+
+.restaurant-info p {
+  margin: 5px 0;
+  color: #555;
+}
+
+.restaurant-rating {
+  margin-top: 10px;
+}
+
+.star {
+  color: #ccc;
+  font-size: 1.2rem;
+}
+
+.star.filled {
+  color: #facc15;
+}
+
+.rating-value {
+  margin-left: 5px;
+  color: #555;
+}
+
+.no-restaurants {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  color: #777;
+  font-size: 1.2rem;
+}

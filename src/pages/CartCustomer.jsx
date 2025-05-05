@@ -1,5 +1,5 @@
 import React from 'react';
-import './CartCustomer.css';
+import '../../styles/CartCustomer.css';
 import { useNavigate } from 'react-router-dom';
 
 export default function CartCustomer() {
