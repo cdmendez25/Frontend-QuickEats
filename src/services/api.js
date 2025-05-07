@@ -1,13 +1,15 @@
 import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+console.log('API URL configurada:', API_URL); // Para verificar qué URL se está usando
 
 // Crear instancia de axios con configuración base
 const api = axios.create({
   baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json'
-  }
+  },
+  withCredentials: true // Importante para cookies y autenticación entre dominios
 });
 
 // Interceptor para agregar el token a todas las solicitudes
@@ -17,9 +19,29 @@ api.interceptors.request.use(
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
+    console.log('Enviando solicitud a:', config.url);
     return config;
   },
   (error) => {
+    console.error('Error en la solicitud:', error);
+    return Promise.reject(error);
+  }
+);
+
+// Añadir interceptor de respuesta para depuración
+api.interceptors.response.use(
+  (response) => {
+    console.log('Respuesta exitosa de:', response.config.url);
+    return response;
+  },
+  (error) => {
+    console.error('Error en la respuesta:', error.message);
+    if (error.response) {
+      console.error('Datos del error:', error.response.data);
+      console.error('Estado del error:', error.response.status);
+    } else if (error.request) {
+      console.error('No se recibió respuesta del servidor');
+    }
     return Promise.reject(error);
   }
 );
