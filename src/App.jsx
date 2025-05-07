@@ -8,9 +8,6 @@ import DishDetailPos from "./pages/DishDetailPos";
 import OrderHistoryPos from "./pages/OrderHistoryPos";
 import MenuPos from "./pages/MenuPos";
 import PrivateRoute from "./routes/PrivateRoute";
-
-// Decide cuál componente quieres usar como página principal para POS
-// Opción 1: Si tienes RestaurantListPos
 import RestaurantListPos from "./pages/RestaurantListPos";
 
 // Opción 2: Si tienes DashboardPos
