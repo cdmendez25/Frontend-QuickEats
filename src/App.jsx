@@ -10,9 +10,6 @@ import MenuPos from "./pages/MenuPos";
 import PrivateRoute from "./routes/PrivateRoute";
 import RestaurantListPos from "./pages/RestaurantListPos";
 
-// Opción 2: Si tienes DashboardPos
-// import DashboardPos from "./pages/DashboardPos";
-
 function App() {
   return (
     <Routes>
