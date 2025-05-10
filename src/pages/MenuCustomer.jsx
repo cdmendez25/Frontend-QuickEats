@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/MenuCustomer.css';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
+import { restaurantService } from '../services/api';
 
 export default function MenuCustomer() {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ export default function MenuCustomer() {
     const fetchRestaurantData = async () => {
       try {
         setLoading(true);
-        const restaurantResponse = await axios.get(`http://localhost:3001/restaurants/${id}`);
+        const restaurantResponse = await restaurantService.getById(id);
         setRestaurant(restaurantResponse.data);
         setDishes(restaurantResponse.data.dishes || []);
         setLoading(false);
