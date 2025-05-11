@@ -12,8 +12,9 @@ export default function DishDetailCustomer() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [restaurant, setRestaurant] = useState(null);
+  const [newComment, setNewComment] = useState('');
 
-  // 🔔 Estado para el modal
+  // 🔔 Modal
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
 
@@ -21,7 +22,6 @@ export default function DishDetailCustomer() {
     const fetchDishData = async () => {
       try {
         setLoading(true);
-
         const token = localStorage.getItem('token');
         if (!token) {
           navigate('/');
@@ -65,6 +65,28 @@ export default function DishDetailCustomer() {
     const msg = `${quantity} ${dish.name} agregado${quantity > 1 ? 's' : ''} al carrito`;
     setModalMessage(msg);
     setShowModal(true);
+  };
+
+  const handleCommentSubmit = async () => {
+    const user = localStorage.getItem('user'); // puedes extraer de JWT si tienes
+    if (!user || !newComment.trim()) return;
+
+    try {
+      await fetch(`http://localhost:3001/dishes/${dish.id}/comments`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user, text: newComment })
+      });
+
+      setDish(prev => ({
+        ...prev,
+        comments: [...(prev.comments || []), { user, text: newComment }]
+      }));
+
+      setNewComment('');
+    } catch (err) {
+      console.error('Error al enviar comentario:', err);
+    }
   };
 
   if (loading) return <div className="dish-detail-container">Cargando detalles del plato...</div>;
@@ -116,9 +138,19 @@ export default function DishDetailCustomer() {
         <div className="dish-comments">
           <h4>Comentarios</h4>
           <ul>
-            <li>🍽️ "Muy rico y fresco"</li>
-            <li>👍 "Buen sabor, repetiría"</li>
+            {dish.comments && dish.comments.map((comment, index) => (
+              <li key={index}><strong>{comment.user}:</strong> {comment.text}</li>
+            ))}
           </ul>
+
+          <div className="comment-form">
+            <textarea
+              placeholder="Escribe tu opinión..."
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+            />
+            <button onClick={handleCommentSubmit}>Enviar</button>
+          </div>
         </div>
       </div>
 

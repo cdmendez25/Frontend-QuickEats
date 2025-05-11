@@ -29,6 +29,7 @@ export default function LoginView() {
       
       localStorage.setItem("token", token);
       localStorage.setItem("role", user);
+      localStorage.setItem("user", form.email);
 
       if (user === "customer") navigate("/dashboard-customer");
       else if (user === "pos") navigate("/dashboard-pos");
