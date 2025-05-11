@@ -8,6 +8,7 @@ export default function DishDetailCustomer() {
   const { id } = useParams();
   const [dish, setDish] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [quantityError, setQuantityError] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [restaurant, setRestaurant] = useState(null);
@@ -16,19 +17,19 @@ export default function DishDetailCustomer() {
     const fetchDishData = async () => {
       try {
         setLoading(true);
-        
-        // Verificar si hay token antes de hacer la solicitud
+
         const token = localStorage.getItem('token');
         if (!token) {
           console.error('No hay token de autenticación');
           navigate('/');
           return;
         }
-        
+
         const dishResponse = await dishService.getById(id);
         setDish(dishResponse.data);
+
         const restaurantsResponse = await restaurantService.getAll();
-        
+
         let foundRestaurant = null;
         for (const rest of restaurantsResponse.data) {
           const fullRestaurantData = await restaurantService.getById(rest.id);
@@ -38,20 +39,19 @@ export default function DishDetailCustomer() {
             break;
           }
         }
-        
+
         setRestaurant(foundRestaurant);
         setLoading(false);
       } catch (err) {
         console.error('Error al cargar datos del plato:', err);
-        
+
         if (err.response && err.response.status === 401) {
-          console.error('Error de autenticación, redirigiendo al login');
           localStorage.removeItem('token');
           localStorage.removeItem('role');
           navigate('/');
           return;
         }
-        
+
         setError('No se pudo cargar la información del plato');
         setLoading(false);
       }
@@ -83,19 +83,24 @@ export default function DishDetailCustomer() {
           <input 
             type="number" 
             min="1" 
-            max={dish.stock} // 👉 esto falta
+            max={dish.stock}
             value={quantity} 
             onChange={(e) => {
               const value = parseInt(e.target.value);
               if (value >= 1 && value <= dish.stock) {
                 setQuantity(value);
+                setQuantityError('');
               } else if (value > dish.stock) {
                 setQuantity(dish.stock);
+                setQuantityError(`Solo hay ${dish.stock} unidades disponibles`);
               } else {
                 setQuantity(1);
+                setQuantityError('');
               }
             }}
           />
+          {quantityError && <p className="error-msg">{quantityError}</p>}
+
           <button 
             className="buy-button" 
             onClick={handleAddToCart}
