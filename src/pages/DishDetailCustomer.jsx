@@ -13,6 +13,10 @@ export default function DishDetailCustomer() {
   const [error, setError] = useState(null);
   const [restaurant, setRestaurant] = useState(null);
 
+  // 🔔 Estado para el modal
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+
   useEffect(() => {
     const fetchDishData = async () => {
       try {
@@ -20,7 +24,6 @@ export default function DishDetailCustomer() {
 
         const token = localStorage.getItem('token');
         if (!token) {
-          console.error('No hay token de autenticación');
           navigate('/');
           return;
         }
@@ -29,8 +32,8 @@ export default function DishDetailCustomer() {
         setDish(dishResponse.data);
 
         const restaurantsResponse = await restaurantService.getAll();
-
         let foundRestaurant = null;
+
         for (const rest of restaurantsResponse.data) {
           const fullRestaurantData = await restaurantService.getById(rest.id);
           const dishExists = fullRestaurantData.data.dishes.some(d => d.id === parseInt(id));
@@ -44,15 +47,13 @@ export default function DishDetailCustomer() {
         setLoading(false);
       } catch (err) {
         console.error('Error al cargar datos del plato:', err);
-
         if (err.response && err.response.status === 401) {
           localStorage.removeItem('token');
           localStorage.removeItem('role');
           navigate('/');
-          return;
+        } else {
+          setError('No se pudo cargar la información del plato');
         }
-
-        setError('No se pudo cargar la información del plato');
         setLoading(false);
       }
     };
@@ -61,8 +62,9 @@ export default function DishDetailCustomer() {
   }, [id, navigate]);
 
   const handleAddToCart = () => {
-    console.log(`Agregando ${quantity} ${dish.name} al carrito`);
-    alert(`Se agregaron ${quantity} ${dish.name} al carrito`);
+    const msg = `${quantity} ${dish.name} agregado${quantity > 1 ? 's' : ''} al carrito`;
+    setModalMessage(msg);
+    setShowModal(true);
   };
 
   if (loading) return <div className="dish-detail-container">Cargando detalles del plato...</div>;
@@ -121,6 +123,15 @@ export default function DishDetailCustomer() {
       </div>
 
       <button className="back-button" onClick={() => navigate(-1)}>← Volver</button>
+
+      {showModal && (
+        <div className="modal-backdrop">
+          <div className="modal-content">
+            <p>{modalMessage}</p>
+            <button onClick={() => setShowModal(false)}>OK</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
