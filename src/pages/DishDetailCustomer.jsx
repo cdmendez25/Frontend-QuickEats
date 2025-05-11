@@ -25,14 +25,10 @@ export default function DishDetailCustomer() {
           return;
         }
         
-        // Usamos dishService en lugar de axios directamente
         const dishResponse = await dishService.getById(id);
         setDish(dishResponse.data);
-        
-        // Usamos restaurantService en lugar de axios directamente
         const restaurantsResponse = await restaurantService.getAll();
         
-        // Buscamos en cada restaurante si contiene este plato
         let foundRestaurant = null;
         for (const rest of restaurantsResponse.data) {
           const fullRestaurantData = await restaurantService.getById(rest.id);
@@ -48,7 +44,6 @@ export default function DishDetailCustomer() {
       } catch (err) {
         console.error('Error al cargar datos del plato:', err);
         
-        // Verificar si el error es de autenticación (401)
         if (err.response && err.response.status === 401) {
           console.error('Error de autenticación, redirigiendo al login');
           localStorage.removeItem('token');
@@ -66,8 +61,6 @@ export default function DishDetailCustomer() {
   }, [id, navigate]);
 
   const handleAddToCart = () => {
-    // Aquí implementarías la lógica para agregar al carrito
-    // Por ahora solo mostraremos un mensaje en consola
     console.log(`Agregando ${quantity} ${dish.name} al carrito`);
     alert(`Se agregaron ${quantity} ${dish.name} al carrito`);
   };
@@ -90,14 +83,27 @@ export default function DishDetailCustomer() {
           <input 
             type="number" 
             min="1" 
+            max={dish.stock} // 👉 esto falta
             value={quantity} 
-            onChange={(e) => setQuantity(parseInt(e.target.value))} 
+            onChange={(e) => {
+              const value = parseInt(e.target.value);
+              if (value >= 1 && value <= dish.stock) {
+                setQuantity(value);
+              } else if (value > dish.stock) {
+                setQuantity(dish.stock);
+              } else {
+                setQuantity(1);
+              }
+            }}
           />
-          <button className="buy-button" onClick={handleAddToCart}>Agregar al carrito</button>
-        </div>
-
-        <div className="dish-rating">
-          <p>⭐⭐⭐⭐☆ (4.0)</p>
+          <button 
+            className="buy-button" 
+            onClick={handleAddToCart}
+            disabled={dish.stock === 0}
+          >
+            {dish.stock === 0 ? 'Agotado' : 'Agregar al carrito'}
+          </button>
+          <p><strong>Disponibles:</strong> {dish.stock}</p>
         </div>
 
         <div className="dish-comments">
