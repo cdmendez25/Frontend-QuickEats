@@ -10,7 +10,8 @@ export default function DishDetailPos() {
     name: '',
     description: '',
     price: 0,
-    available: true
+    available: true,
+    stock: 0 // nuevo campo agregado
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -21,7 +22,6 @@ export default function DishDetailPos() {
     const fetchDish = async () => {
       try {
         setLoading(true);
-        // Reemplazamos los datos simulados con una llamada real a la API
         const response = await dishService.getById(id);
         setDish(response.data);
         setLoading(false);
@@ -47,9 +47,7 @@ export default function DishDetailPos() {
     e.preventDefault();
     try {
       setSaving(true);
-      // Implementamos la llamada real a la API para actualizar el plato
       await dishService.update(id, dish);
-      
       setSaving(false);
       setSaveSuccess(true);
       setTimeout(() => setSaveSuccess(false), 3000);
@@ -98,11 +96,21 @@ export default function DishDetailPos() {
             required
           />
 
+          <label>Cantidad disponible</label>
+          <input 
+            type="number" 
+            name="stock"
+            value={dish.stock} 
+            onChange={handleChange}
+            min="0"
+            required
+          />
+
           <label>Disponible</label>
           <select 
             name="available"
             value={dish.available ? "yes" : "no"} 
-            onChange={(e) => setDish({...dish, available: e.target.value === "yes"})}
+            onChange={(e) => setDish({ ...dish, available: e.target.value === "yes" })}
           >
             <option value="yes">Sí</option>
             <option value="no">No</option>
