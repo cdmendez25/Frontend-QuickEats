@@ -14,18 +14,22 @@ export default function MenuPos() {
     const fetchRestaurantData = async () => {
       try {
         setLoading(true);
-        
-        // Obtener datos del restaurante
+
+        // 1. Obtener el restaurante
         const restaurantResponse = await restaurantService.getById(id);
-        setRestaurant(restaurantResponse.data);
-        
-        // Obtener platos del restaurante usando dishService
-        const dishesResponse = await dishService.getByRestaurant(id);
-        setDishes(dishesResponse.data || []);
-        
+        const restaurantData = restaurantResponse.data;
+        setRestaurant(restaurantData);
+
+        // 2. Obtener platos por sus IDs
+        const dishIds = restaurantData.dishIds || [];
+        const dishPromises = dishIds.map(dishId => dishService.getById(dishId));
+        const dishResponses = await Promise.all(dishPromises);
+        const allDishes = dishResponses.map(res => res.data);
+        setDishes(allDishes);
+
         setLoading(false);
       } catch (err) {
-        console.error('Error al cargar datos del restaurante:', err);
+        console.error('Error al cargar datos del restaurante o platos:', err);
         setError('No se pudo cargar la información del restaurante');
         setLoading(false);
       }
