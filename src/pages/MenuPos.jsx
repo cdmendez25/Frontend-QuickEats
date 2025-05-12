@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { restaurantService, dishService } from '../services/api';
+import '../../styles/MenuPos.css';
 
 export default function MenuPos() {
   const navigate = useNavigate();
