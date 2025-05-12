@@ -70,7 +70,9 @@ export default function LoginView() {
         </div>
         <button type="submit">Log in</button>
         {error && <p className="error-text">{error}</p>}
-        <a href="#" className="forgot-password">Forgot your password?</a>
+        <p className="forgot-password">
+          <a href="#" className="forgot-password">Forgot your password?</a>
+        </p>
       </form>
     </div>
   );

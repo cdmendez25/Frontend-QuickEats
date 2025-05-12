@@ -9,11 +9,13 @@ import OrderHistoryPos from "./pages/OrderHistoryPos";
 import MenuPos from "./pages/MenuPos";
 import PrivateRoute from "./routes/PrivateRoute";
 import RestaurantListPos from "./pages/RestaurantListPos";
+import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<LoginView />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
 
       <Route element={<PrivateRoute allowedRole="pos" />}>
         {/* Usa el componente que hayas decidido */}
