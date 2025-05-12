@@ -39,7 +39,7 @@ export default function DishDetailPos() {
     const { name, value, type, checked } = e.target;
     let newValue = type === 'checkbox' ? checked : value;
 
-    // Asegurar que stock y price sean números
+    // Convertir explícitamente a número si es 'price' o 'stock'
     if (name === 'price' || name === 'stock') {
       newValue = parseInt(newValue) || 0;
     }
@@ -54,6 +54,7 @@ export default function DishDetailPos() {
     e.preventDefault();
     try {
       setSaving(true);
+      console.log("Valores enviados al backend:", dish); // 👈 Aquí se imprime lo que se envía
       await dishService.update(id, dish);
       setSaving(false);
       setSaveSuccess(true);
