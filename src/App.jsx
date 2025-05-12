@@ -15,7 +15,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<LoginView />} />
-      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password" element={<ForgotPassword />} />
 
       <Route element={<PrivateRoute allowedRole="pos" />}>
         {/* Usa el componente que hayas decidido */}
