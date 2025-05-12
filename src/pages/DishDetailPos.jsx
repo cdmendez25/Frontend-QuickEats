@@ -11,7 +11,7 @@ export default function DishDetailPos() {
     description: '',
     price: 0,
     available: true,
-    stock: 0 // nuevo campo agregado
+    stock: 0
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -37,9 +37,16 @@ export default function DishDetailPos() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+    let newValue = type === 'checkbox' ? checked : value;
+
+    // Asegurar que stock y price sean números
+    if (name === 'price' || name === 'stock') {
+      newValue = parseInt(newValue) || 0;
+    }
+
     setDish({
       ...dish,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: newValue
     });
   };
 
@@ -117,6 +124,7 @@ export default function DishDetailPos() {
           </select>
 
           {saveSuccess && <p className="success-message">¡Cambios guardados con éxito!</p>}
+          {error && <p className="error-message">{error}</p>}
 
           <div className="form-actions">
             <button type="button" className="back-btn" onClick={() => navigate(-1)}>← Volver</button>
