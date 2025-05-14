@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import '../../styles/LoginView.css';
 
@@ -71,7 +72,7 @@ export default function LoginView() {
         <button type="submit">Log in</button>
         {error && <p className="error-text">{error}</p>}
         <p className="forgot-password">
-          <a href="#" className="forgot-password">Forgot your password?</a>
+          <Link to="/reset-password" className="forgot-password">Forgot your password?</Link>
         </p>
       </form>
     </div>

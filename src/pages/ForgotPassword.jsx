@@ -1,18 +1,28 @@
 import { useState } from "react";
 import axios from "axios";
 
-export default function ForgotPassword () {
-  const [email, setEmail]= useState("");  
+export default function ForgotPassword() {
+  const [email, setEmail] = useState("");  
   const [step, setStep] = useState(1);
   const [newPassword, setNewPassword] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-   
+  const EmailSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post(`${import.meta.env.VITE_API_URL}/auth/forgot-password`, { email });
+      setStep(2);
+      setError("");
+    } catch (err) {
+      setError(err.response?.data?.message || "Error al enviar el correo de recuperación");
+    }
+  };
+
   const PasswordSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/auth/reset-password`, { newPassword });
+      await axios.post(`${import.meta.env.VITE_API_URL}/auth/reset-password`, { newPassword });
       setMessage("Contraseña actualizada exitosamente.");
       setError("");
     } catch (err) {
@@ -20,8 +30,8 @@ export default function ForgotPassword () {
     }
   };
 
-  return(
-     <div className="forgot-container">
+  return (
+    <div className="forgot-container">
       {step === 1 ? (
         <form onSubmit={EmailSubmit} className="forgot-card">
           <h2>Recuperar contraseña</h2>
@@ -51,5 +61,5 @@ export default function ForgotPassword () {
         </form>
       )}
     </div>
-  ); 
+  );
 }

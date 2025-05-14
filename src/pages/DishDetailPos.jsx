@@ -127,11 +127,11 @@ export default function DishDetailPos() {
           <label>Disponible</label>
           <select 
             name="available"
-            value={dish.available ? "yes" : "no"} 
-            onChange={(e) => setDish({ ...dish, available: e.target.value === "yes" })}
+            value={dish.available ? "true" : "false"} 
+            onChange={(e) => setDish({ ...dish, available: e.target.value === "true" })}
           >
-            <option value="yes">Sí</option>
-            <option value="no">No</option>
+            <option value="true">Sí</option>
+            <option value="false">No</option>
           </select>
 
           {saveSuccess && <p className="success-message">¡Cambios guardados con éxito!</p>}
