@@ -9,12 +9,36 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  height: 60px;
 }
 
 .restaurant-header h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  bottom: -250px;
+  transform: translate(-50%, -50%);
   margin: 0;
   color: #184C8B;
+  font-size: 34px;
+  color: #184C8B;
+}
+
+.btn-back {
+  position: absolute;
+  left: 100px;
+  top: 50%;
+  transform: translateY(-1020%);
+}
+
+.btn-logout {
+  position: absolute;
+  right: 100px;
+  top: 50%;
+  transform: translateY(-950%);
+  background-color: #facc15;
+  color: #1e3a8a;
 }
 
 .btn-back, .btn-logout {
@@ -30,16 +54,24 @@
 .btn-logout {
   background-color: #facc15;
   color: #1e3a8a;
+  margin-bottom: 100px;
 }
 
 .restaurant-search {
   margin-bottom: 20px;
+  position: absolute;
+  top: 50%;
+  left: 780px;
+  bottom: -100px;
+  transform: translate(-50%, -50%);
+  margin: 0;
 }
 
 .restaurant-search input {
-  width: 100%;
+  font-family: 'Nunito Sans', sans-serif;
+  width: 350px;
   padding: 10px;
-  border-radius: 8px;
+  border-radius: 15px;
   border: 1px solid #ddd;
   font-size: 16px;
 }
@@ -92,4 +124,18 @@
 
 .error-message {
   color: #d91717;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #d91717;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  background-color: #ffe5e5;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 80%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }

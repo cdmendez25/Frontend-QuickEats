@@ -9,6 +9,8 @@
   text-align: center;
   color: #184C8B;
   margin-bottom: 30px;
+  transform: translate(-120%, -655%);
+  font-size: 34px;
 }
 
 .order-list {

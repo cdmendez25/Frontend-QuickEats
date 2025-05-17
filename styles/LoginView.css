@@ -4,8 +4,10 @@
   align-items: center;
   height: 100vh;
   background-image: url('/src/assets/img2.avif');
-  background-size: cover;
-  background-position: 40% -80px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
 }
 
 .login-card {
@@ -112,8 +114,11 @@
   background-color: #cba717;
 }
 
-/* Sobrescribir el estilo general de botones para este botón específico */
 .login-card .toggle-password-btn {
   width: auto;
   margin-top: 0;
+}
+
+@media (max-width: 768px){
+  
 }
