@@ -70,26 +70,31 @@ export default function DishDetailCustomer() {
   };
 
   const handleCommentSubmit = async () => {
-    const user = localStorage.getItem('user'); // puedes extraer de JWT si tienes
-    if (!user || !newComment.trim()) return;
+  const user = localStorage.getItem('user');
+  const token = localStorage.getItem('token');
 
-    try {
-      await fetch(`${API_URL}/dishes/${dish.id}/comments`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ user, text: newComment })
-      });
+  if (!user || !newComment.trim() || !token) return;
 
-      setDish(prev => ({
-        ...prev,
-        comments: [...(prev.comments || []), { user, text: newComment }]
-      }));
+  try {
+    await fetch(`${API_URL}/dishes/${dish.id}/comments`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ user, text: newComment })
+    });
 
-      setNewComment('');
-    } catch (err) {
-      console.error('Error al enviar comentario:', err);
-    }
-  };
+    setDish(prev => ({
+      ...prev,
+      comments: [...(prev.comments || []), { user, text: newComment }]
+    }));
+
+    setNewComment('');
+  } catch (err) {
+    console.error('Error al enviar comentario:', err);
+  }
+};
 
   if (loading) return <div className="dish-detail-container">Cargando detalles del plato...</div>;
   if (error) return <div className="dish-detail-container">Error: {error}</div>;
