@@ -3,6 +3,8 @@ import '../../styles/DishDetailCustomer.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { dishService, restaurantService } from '../services/api';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function DishDetailCustomer() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -72,7 +74,7 @@ export default function DishDetailCustomer() {
     if (!user || !newComment.trim()) return;
 
     try {
-      await fetch(`http://localhost:3001/dishes/${dish.id}/comments`, {
+      await fetch(`${API_URL}/dishes/${dish.id}/comments`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user, text: newComment })
