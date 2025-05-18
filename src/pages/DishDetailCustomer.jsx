@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../../styles/DishDetailCustomer.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
-import { dishService, restaurantService } from '../services/api';
+import { dishService, restaurantService, cartService} from '../services/api';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -63,11 +63,24 @@ export default function DishDetailCustomer() {
     fetchDishData();
   }, [id, navigate]);
 
-  const handleAddToCart = () => {
+ const handleAddToCart = async () => {
+  try {
+    await cartService.addItem({
+      id: dish.id,
+      nombre: dish.name,        // ⚠️ El backend espera 'nombre'
+      precio: dish.price,
+      cantidad: quantity
+    });
+
     const msg = `${quantity} ${dish.name} agregado${quantity > 1 ? 's' : ''} al carrito`;
     setModalMessage(msg);
     setShowModal(true);
-  };
+  } catch (error) {
+    console.error('Error al agregar al carrito:', error);
+    setModalMessage('Ocurrió un error al agregar al carrito');
+    setShowModal(true);
+  }
+};
 
   const handleCommentSubmit = async () => {
   const user = localStorage.getItem('user');
