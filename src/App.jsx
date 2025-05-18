@@ -18,7 +18,6 @@ function App() {
       <Route path="/reset-password" element={<ForgotPassword />} />
 
       <Route element={<PrivateRoute allowedRole="pos" />}>
-        {/* Usa el componente que hayas decidido */}
         <Route path="/dashboard-pos" element={<RestaurantListPos />} />
         <Route path="/restaurant-pos/:id" element={<MenuPos />} />
         <Route path="/dish-pos/:id" element={<DishDetailPos />} />

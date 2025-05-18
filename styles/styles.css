@@ -4,6 +4,7 @@
   margin: 0;
   font-family: 'Nunito Sans', sans-serif;
   background-image: url('/src/assets/img2.avif');
+  overflow-y: auto; 
   }
   a {
     text-decoration: none;

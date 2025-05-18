@@ -1,47 +1,34 @@
+* {
+  box-sizing: border-box;
+}
+
 .restaurant-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
   font-family: 'Nunito Sans', sans-serif;
+  min-height: 100vh;
+  overflow-y: auto;
 }
 
 .restaurant-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
-  height: 60px;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0 20px;
+  height: auto; 
 }
 
 .restaurant-header h1 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  bottom: -250px;
-  transform: translate(-50%, -50%);
-  margin: 0;
-  color: #184C8B;
+  margin: 0 auto;
   font-size: 34px;
   color: #184C8B;
 }
 
-.btn-back {
-  position: absolute;
-  left: 100px;
-  top: 50%;
-  transform: translateY(-1020%);
-}
-
+.btn-back,
 .btn-logout {
-  position: absolute;
-  right: 100px;
-  top: 50%;
-  transform: translateY(-950%);
-  background-color: #facc15;
-  color: #1e3a8a;
-}
-
-.btn-back, .btn-logout {
   background-color: #184C8B;
   color: white;
   border: none;
@@ -54,17 +41,13 @@
 .btn-logout {
   background-color: #facc15;
   color: #1e3a8a;
-  margin-bottom: 100px;
 }
 
 .restaurant-search {
+  width: 100%;
   margin-bottom: 20px;
-  position: absolute;
-  top: 50%;
-  left: 780px;
-  bottom: -100px;
-  transform: translate(-50%, -50%);
-  margin: 0;
+  display: flex;
+  justify-content: center;
 }
 
 .restaurant-search input {
@@ -138,4 +121,21 @@
   max-width: 80%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
+}
+
+@media (max-width: 480px) {
+  .restaurant-search input {
+    width: 90%;
+  }
+
+  .restaurant-header h1 {
+    font-size: 28px;
+    text-align: center;
+    width: 100%;
+  }
+
+  .btn-back, .btn-logout {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
 }
