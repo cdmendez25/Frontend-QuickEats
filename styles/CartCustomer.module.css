@@ -3,6 +3,7 @@
   margin: 0 auto;
   padding: 20px;
   font-family: 'Nunito Sans', sans-serif;
+  position: relative; /* Esto permite que el botón "Volver" se posicione relativo a este contenedor */
 }
 
 .cart-container h2 {
@@ -15,7 +16,7 @@
 .cart-list {
   margin-bottom: 30px;
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
@@ -45,17 +46,8 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   text-align: right;
   width: 300px;
-  transform: translate(-60%,130%);
-}
-
-.cart-total {
-  background-color: white;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  text-align: right;
-  width: 300px;
-  margin: 0 auto; /* Centra horizontalmente */
+  margin: 0 auto;
+  margin-top: 40px;
 }
 
 .confirm-button {
@@ -66,8 +58,8 @@
   border-radius: 5px;
   cursor: pointer;
   font-weight: bold;
-  margin-right: 70px;
-  cursor: pointer;
+  display: block;
+  margin: 20px auto 0;
 }
 
 .back-button {
