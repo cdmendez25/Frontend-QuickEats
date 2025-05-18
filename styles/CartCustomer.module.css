@@ -75,7 +75,7 @@
 }
 
 .back-button {
-  background-color: #eee;
+  background-color: #facc15;
   border: none;
   border-radius: 10rem;
   padding: 10px 20px;
@@ -87,5 +87,5 @@
 }
 
 .back-button:hover {
-  background-color: #ddd;
+  background-color: #cba717;
 }
