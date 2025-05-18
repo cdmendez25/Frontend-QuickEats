@@ -84,8 +84,6 @@
   border-radius: 10rem;
   border: none;
   margin-bottom: 0;
-  position: relative;
-  left: -10px;
 }
 
 .toggle-password-btn {
@@ -117,8 +115,4 @@
 .login-card .toggle-password-btn {
   width: auto;
   margin-top: 0;
-}
-
-@media (max-width: 768px){
-  
 }
