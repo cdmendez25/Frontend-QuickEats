@@ -55,7 +55,7 @@ export default function OrderHistoryPos() {
           {orders.map(order => (
             <div key={order.id} className={styles["order-card"]}>
               <p><strong>Cliente:</strong> {order.cliente}</p>
-              <p><strong>Total:</strong> {order.total}</p>
+              <p><strong>Total:</strong> ${order.total?.toLocaleString() || 0}</p>
               <p><strong>Estado:</strong> {order.estado}</p>
               {order.estado !== 'Cancelado' && (
                 <button 
