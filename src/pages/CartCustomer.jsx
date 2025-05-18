@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { dishService, orderService, authService } from '../services/api';
-import styles from '../../styles/DashboardPos.module.css';
+import styles from '../../styles/CartCustomer.module.css';
 
 export default function DashboardPos() {
   const navigate = useNavigate();
