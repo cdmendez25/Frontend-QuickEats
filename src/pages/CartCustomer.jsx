@@ -24,6 +24,18 @@ export default function CartCustomer() {
     }
   };
 
+  const handleConfirmOrder = async () => {
+    try {
+      await cartService.checkout(); // hace POST a /cart/checkout
+      setCartItems([]); // limpia el carrito local
+      setMessage('Pedido confirmado con éxito');
+      setTimeout(() => setMessage(''), 3000);
+    } catch (err) {
+      console.error('Error al confirmar pedido:', err);
+      setMessage('Error al confirmar el pedido');
+      setTimeout(() => setMessage(''), 3000);
+    }
+  };
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -75,7 +87,7 @@ export default function CartCustomer() {
 
           <div className={styles["cart-total"]}>
             <p><strong>Total:</strong> ${total.toLocaleString()}</p>
-            <button className={styles["confirm-button"]}>Confirmar Pedido</button>
+            <button className={styles["confirm-button"]} onClick={handleConfirmOrder}>Confirmar Pedido</button>
           </div>
         </>
       )}
