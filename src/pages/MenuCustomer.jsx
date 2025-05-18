@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../../styles/MenuCustomer.css';
+import styles from '../../styles/MenuCustomer.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { restaurantService } from '../services/api';
 
@@ -29,28 +29,28 @@ export default function MenuCustomer() {
     fetchRestaurantData();
   }, [id]);
 
-  if (loading) return <div className="menu-customer-container">Cargando menú...</div>;
-  if (error) return <div className="menu-customer-container">Error: {error}</div>;
-  if (!restaurant) return <div className="menu-customer-container">No se encontró el restaurante</div>;
+  if (loading) return <div className={styles["menu-customer-container"]}>Cargando menú...</div>;
+  if (error) return <div className={styles["menu-customer-container"]}>Error: {error}</div>;
+  if (!restaurant) return <div className={styles["menu-customer-container"]}>No se encontró el restaurante</div>;
 
   return (
-    <div className="menu-customer-container">
-      <header className="menu-header">
+     <div className={styles["menu-customer-container"]}>
+      <header className={styles["menu-header"]}>
         <h1>{restaurant.name}</h1>
         <p>⭐ {restaurant.rating} - {restaurant.cuisine}</p>
       </header>
 
-      <div className="menu-list">
+      <div className={styles["menu-list"]}>
         {dishes.map((dish) => (
-          <div key={dish.id} className="menu-card">
-            <div className="menu-image"></div>
-            <div className="menu-info">
+          <div key={dish.id} className={styles["menu-card"]}>
+            <div className={styles["menu-image"]}></div>
+            <div className={styles["menu-info"]}>
               <strong>{dish.name}</strong>
               <p>{dish.description}</p>
               <p>${dish.price.toLocaleString()}</p>
             </div>
             <button 
-              className="add-button" 
+              className={styles["add-button"]} 
               onClick={() => navigate(`/dish/${dish.id}`)}
             >
               Ver detalle
@@ -59,9 +59,9 @@ export default function MenuCustomer() {
         ))}
       </div>
 
-      <footer className="menu-footer">
-        <button className="back-button" onClick={() => navigate(-1)}>Volver ↩</button>
-        <button className="cart-button" onClick={() => navigate('/cart')}>Carrito 🛒</button>
+      <footer className={styles["menu-footer"]}>
+        <button className={styles["back-button"]} onClick={() => navigate(-1)}>Volver ↩</button>
+        <button className={styles["cart-button"]} onClick={() => navigate('/cart')}>Carrito 🛒</button>
       </footer>
     </div>
   );

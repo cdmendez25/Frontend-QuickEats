@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../../styles/DishDetailCustomer.css';
+import styles from '../../styles/DishDetailCustomer.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { dishService, restaurantService } from '../services/api';
 
@@ -16,7 +16,7 @@ export default function DishDetailCustomer() {
   const [restaurant, setRestaurant] = useState(null);
   const [newComment, setNewComment] = useState('');
 
-  // 🔔 Modal
+
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
 
@@ -96,21 +96,21 @@ export default function DishDetailCustomer() {
   }
 };
 
-  if (loading) return <div className="dish-detail-container">Cargando detalles del plato...</div>;
-  if (error) return <div className="dish-detail-container">Error: {error}</div>;
-  if (!dish) return <div className="dish-detail-container">No se encontró el plato</div>;
-
+  if (loading) return <div className={styles["dish-detail-container"]}>Cargando detalles del plato...</div>;
+  if (error) return <div className={styles["dish-detail-container"]}>Error: {error}</div>;
+  if (!dish) return <div className={styles["dish-detail-container"]}>No se encontró el plato</div>;
+  
   return (
-    <div className="dish-detail-container">
-      <div className="dish-image"></div>
+    <div className={styles["dish-detail-container"]}>
+      <div className={styles["dish-image"]}></div>
 
-      <div className="dish-info">
+      <div className={styles["dish-info"]}>
         <h2>{dish.name}</h2>
         <p>{dish.description}</p>
         <p><strong>Precio:</strong> ${dish.price.toLocaleString()}</p>
         <p><strong>Restaurante:</strong> {restaurant ? restaurant.name : 'Cargando...'}</p>
 
-        <div className="dish-actions">
+        <div className={styles["dish-actions"]}>
           <input 
             type="number" 
             min="1" 
@@ -130,10 +130,10 @@ export default function DishDetailCustomer() {
               }
             }}
           />
-          {quantityError && <p className="error-msg">{quantityError}</p>}
+          {quantityError && <p className={styles["error-msg"]}>{quantityError}</p>}
 
           <button 
-            className="buy-button" 
+            className={styles["buy-button"]} 
             onClick={handleAddToCart}
             disabled={dish.stock === 0}
           >
@@ -142,7 +142,7 @@ export default function DishDetailCustomer() {
           <p><strong>Disponibles:</strong> {dish.stock}</p>
         </div>
 
-        <div className="dish-comments">
+        <div className={styles["dish-comments"]}>
           <h4>Comentarios</h4>
           <ul>
             {dish.comments && dish.comments.map((comment, index) => (
@@ -150,7 +150,7 @@ export default function DishDetailCustomer() {
             ))}
           </ul>
 
-          <div className="comment-form">
+          <div className={styles["comment-form"]}>
             <textarea
               placeholder="Escribe tu opinión..."
               value={newComment}
@@ -161,11 +161,11 @@ export default function DishDetailCustomer() {
         </div>
       </div>
 
-      <button className="back-button" onClick={() => navigate(-1)}>← Volver</button>
+      <button className={styles["back-button"]} onClick={() => navigate(-1)}>← Volver</button>
 
       {showModal && (
-        <div className="modal-backdrop">
-          <div className="modal-content">
+        <div className={styles["modal-backdrop"]}>
+          <div className={styles["modal-content"]}>
             <p>{modalMessage}</p>
             <button onClick={() => setShowModal(false)}>OK</button>
           </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../../styles/OrderHistoryPos.css';
+import styles from '../../styles/OrderHistoryPos.module.css';
 import { useNavigate } from 'react-router-dom';
 import { orderService } from '../services/api';
 
@@ -43,23 +43,23 @@ export default function OrderHistoryPos() {
   };
 
   return (
-    <div className="history-pos-container">
+     <div className={styles["history-pos-container"]}>
       <h2>Historial de Pedidos</h2>
 
       {loading ? (
-        <p className="loading-message">Cargando pedidos...</p>
+        <p className={styles["loading-message"]}>Cargando pedidos...</p>
       ) : error ? (
-        <p className="error-message">{error}</p>
+        <p className={styles["error-message"]}>{error}</p>
       ) : (
-        <div className="order-list">
+        <div className={styles["order-list"]}>
           {orders.map(order => (
-            <div key={order.id} className="order-card">
+            <div key={order.id} className={styles["order-card"]}>
               <p><strong>Cliente:</strong> {order.cliente}</p>
               <p><strong>Total:</strong> {order.total}</p>
               <p><strong>Estado:</strong> {order.estado}</p>
               {order.estado !== 'Cancelado' && (
                 <button 
-                  className="cancel-button"
+                  className={styles["cancel-button"]}
                   onClick={() => handleCancelOrder(order.id)}
                 >
                   Cancelar Pedido
@@ -68,9 +68,9 @@ export default function OrderHistoryPos() {
             </div>
           ))}
         </div>
-      )}
+        )}
 
-      <button className="back-button" onClick={() => navigate(-1)}>← Volver</button>
+      <button className={styles["back-button"]} onClick={() => navigate(-1)}>← Volver</button>
     </div>
   );
 }

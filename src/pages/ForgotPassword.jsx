@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import '../../styles/ForgotPassword.css'
+import styles from '../../styles/ForgotPassword.module.css';
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");  
@@ -32,9 +32,9 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div className="forgot-container">
+    <div className={styles["forgot-container"]}>
       {step === 1 ? (
-        <form onSubmit={EmailSubmit} className="forgot-card">
+        <form onSubmit={EmailSubmit} className={styles["forgot-card"]}>
           <h2>Recover your password!</h2>
           <input
             type="email"
@@ -44,10 +44,10 @@ export default function ForgotPassword() {
             required
           />
           <button type="submit">Submit</button>
-          {error && <p className="error-text">{error}</p>}
+          {error && <p className={styles["error-text"]}>{error}</p>}
         </form>
       ) : (
-        <form onSubmit={PasswordSubmit} className="forgot-card">
+        <form onSubmit={PasswordSubmit} className={styles["forgot-card"]}>
           <h2>Establecer nueva contraseña</h2>
           <input
             type="password"
@@ -57,8 +57,8 @@ export default function ForgotPassword() {
             required
           />
           <button type="submit">Actualizar</button>
-          {error && <p className="error-text">{error}</p>}
-          {message && <p className="success-text">{message}</p>}
+          {error && <p className={styles["error-text"]}>{error}</p>}
+          {message && <p className={styles["success-text"]}>{message}</p>}
         </form>
       )}
     </div>

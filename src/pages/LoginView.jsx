@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import '../../styles/LoginView.css';
+import styles from '../../styles/LoginView.module.css';
 
 export default function LoginView() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -41,8 +41,8 @@ export default function LoginView() {
   };
 
   return (
-    <div className="login-container">
-      <form className="login-card" onSubmit={handleSubmit}>
+    <div className={styles["login-container"]}>
+      <form className={styles["login-card"]} onSubmit={handleSubmit}>
         <h1>Welcome!</h1>
         <input
           type="text"
@@ -52,7 +52,7 @@ export default function LoginView() {
           onChange={handleChange}
           required
         />
-        <div className="password-container">
+        <div className={styles["password-container"]}>
           <input
             type={showPassword ? "text" : "password"}
             name="password"
@@ -63,16 +63,18 @@ export default function LoginView() {
           />
           <button 
             type="button" 
-            className="toggle-password-btn"
+            className={styles["toggle-password-btn"]}
             onClick={togglePasswordVisibility}
           >
             {showPassword ? "Ocultar" : "Mostrar"}
           </button>
         </div>
         <button type="submit">Log in</button>
-        {error && <p className="error-text">{error}</p>}
-        <p className="forgot-password">
-          <Link to="/reset-password" className="forgot-password">Forgot your password?</Link>
+        {error && <p className={styles["error-text"]}>{error}</p>}
+        <p className={styles["forgot-password"]}>
+          <Link to="/reset-password" className={styles["forgot-password"]}>
+            Forgot your password?
+          </Link>
         </p>
       </form>
     </div>

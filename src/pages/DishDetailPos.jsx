@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../../styles/DishDetailPos.css';
+import styles from '../../styles/DishDetailPos.module.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { dishService } from '../services/api';
 
@@ -54,7 +54,7 @@ export default function DishDetailPos() {
     try {
       setSaving(true);
 
-      // ⚠️ Solo enviar los campos válidos esperados por el backend
+      
       const payload = {
         name: dish.name,
         description: dish.description,
@@ -75,15 +75,16 @@ export default function DishDetailPos() {
       setSaving(false);
     }
   };
+  
+  if (loading) return <p className={styles["loading-message"]}>Cargando datos del plato...</p>;
+  if (error) return <p className={styles["error-message"]}>{error}</p>;
 
-  if (loading) return <p className="loading-message">Cargando datos del plato...</p>;
-  if (error) return <p className="error-message">{error}</p>;
 
   return (
-    <div className="dish-pos-container">
-      <div className="dish-image-pos"></div>
+     <div className={styles["dish-pos-container"]}>
+      <div className={styles["dish-image-pos"]}></div>
 
-      <div className="dish-form-pos">
+      <div className={styles["dish-form-pos"]}>
         <h2>Editar Plato</h2>
 
         <form onSubmit={handleSubmit}>
@@ -134,12 +135,12 @@ export default function DishDetailPos() {
             <option value="false">No</option>
           </select>
 
-          {saveSuccess && <p className="success-message">¡Cambios guardados con éxito!</p>}
-          {error && <p className="error-message">{error}</p>}
+          {saveSuccess && <p className={styles["success-message"]}>¡Cambios guardados con éxito!</p>}
+          {error && <p className={styles["error-message"]}>{error}</p>}
 
-          <div className="form-actions">
-            <button type="button" className="back-btn" onClick={() => navigate(-1)}>← Volver</button>
-            <button type="submit" className="save-btn" disabled={saving}>
+          <div className={styles["form-actions"]}>
+            <button type="button" className={styles["back-btn"]} onClick={() => navigate(-1)}>← Volver</button>
+            <button type="submit" className={styles["save-btn"]} disabled={saving}>
               {saving ? 'Guardando...' : 'Guardar'}
             </button>
           </div>

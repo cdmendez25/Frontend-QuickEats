@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { restaurantService } from '../services/api';
-import '../../styles/RestaurantListPos.css';
+import styles from '../../styles/RestaurantListPos.module.css';
 
 export default function RestaurantListPos() {
   const navigate = useNavigate();
@@ -40,45 +40,51 @@ export default function RestaurantListPos() {
   if (error) return <div className="restaurant-list-container">Error: {error}</div>;
 
   return (
-    <div className="restaurant-list-container">
-      <header className="restaurant-list-header">
+     <div className={styles["restaurant-list-container"]}>
+      <header className={styles["restaurant-list-header"]}>
         <h1>Restaurantes</h1>
-        <div className="header-actions">
-          <button className="order-history-button" onClick={() => navigate('/order-history')}>
+        <div className={styles["header-actions"]}>
+          <button 
+            className={styles["order-history-button"]} 
+            onClick={() => navigate('/order-history')}
+          >
             Historial de Órdenes
           </button>
-          <button className="logout-button" onClick={handleLogout}>
+          <button 
+            className={styles["logout-button"]} 
+            onClick={handleLogout}
+          >
             Cerrar Sesión
           </button>
         </div>
       </header>
 
-      <div className="restaurant-grid">
+      <div className={styles["restaurant-grid"]}>
         {restaurants.length > 0 ? (
           restaurants.map(restaurant => (
             <div 
               key={restaurant.id} 
-              className="restaurant-card"
+              className={styles["restaurant-card"]}
               onClick={() => handleRestaurantClick(restaurant.id)}
             >
-              <div className="restaurant-image"></div>
-              <div className="restaurant-info">
+              <div className={styles["restaurant-image"]}></div>
+              <div className={styles["restaurant-info"]}>
                 <h3>{restaurant.name}</h3>
                 <p>{restaurant.cuisine}</p>
-                <div className="restaurant-rating">
+                <div className={styles["restaurant-rating"]}>
                   {Array(Math.floor(restaurant.rating || 0)).fill().map((_, i) => (
-                    <span key={i} className="star filled">★</span>
+                    <span key={i} className={styles["star"] + ' ' + styles["filled"]}>★</span>
                   ))}
                   {Array(5 - Math.floor(restaurant.rating || 0)).fill().map((_, i) => (
-                    <span key={i} className="star">☆</span>
+                    <span key={i} className={styles["star"]}>☆</span>
                   ))}
-                  <span className="rating-value">{restaurant.rating}</span>
+                  <span className={styles["rating-value"]}>{restaurant.rating}</span>
                 </div>
               </div>
             </div>
           ))
         ) : (
-          <p className="no-restaurants">No hay restaurantes disponibles</p>
+          <p className={styles["no-restaurants"]}>No hay restaurantes disponibles</p>
         )}
       </div>
     </div>

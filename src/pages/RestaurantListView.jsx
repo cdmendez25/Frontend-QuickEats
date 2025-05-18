@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../../styles/RestaurantListView.css';
+import styles from '../../styles/RestaurantListView.module.css';
 import { useNavigate } from 'react-router-dom';
 import { restaurantService, authService } from '../services/api';
 
@@ -45,14 +45,14 @@ export default function RestaurantListView() {
   );
 
   return (
-    <div className="restaurant-container">
-      <header className="restaurant-header">
-        <button className="btn-back" onClick={() => navigate(-1)}>←</button>
+    <div className={styles["restaurant-container"]}>
+      <header className={styles["restaurant-header"]}>
+        <button className={styles["btn-back"]} onClick={() => navigate(-1)}>←</button>
         <h1>Restaurantes</h1>
-        <button className="btn-logout" onClick={handleLogout}>Logout ↪</button>
+        <button className={styles["btn-logout"]} onClick={handleLogout}>Logout ↪</button>
       </header>
 
-      <div className="restaurant-search">
+      <div className={styles["restaurant-search"]}>
         <input 
           type="text" 
           placeholder="Buscar..." 
@@ -62,20 +62,20 @@ export default function RestaurantListView() {
       </div>
 
       {loading ? (
-        <p className="loading-message">Cargando restaurantes...</p>
+        <p className={styles["loading-message"]}>Cargando restaurantes...</p>
       ) : error ? (
-        <p className="error-message">{error}</p>
+        <p className={styles["error-message"]}>{error}</p>
       ) : (
-        <div className="restaurant-grid">
+        <div className={styles["restaurant-grid"]}>
           {filteredRestaurants.length > 0 ? (
             filteredRestaurants.map((restaurant) => (
               <div 
                 key={restaurant.id} 
-                className="restaurant-card"
+                className={styles["restaurant-card"]}
                 onClick={() => navigate(`/restaurant/${restaurant.id}`)}
               >
-                <div className="image-placeholder"></div>
-                <div className="info">
+                <div className={styles["image-placeholder"]}></div>
+                <div className={styles["info"]}>
                   <strong>{restaurant.name || 'Restaurante sin nombre'}</strong>
                   <p>{restaurant.rating || 'Sin calificación'} ⭐</p>
                   <p>{restaurant.cuisine || 'Tipo de cocina no especificado'}</p>
@@ -83,7 +83,7 @@ export default function RestaurantListView() {
               </div>
             ))
           ) : (
-            <p className="no-results">No se encontraron restaurantes</p>
+            <p className={styles["no-results"]}>No se encontraron restaurantes</p>
           )}
         </div>
       )}
