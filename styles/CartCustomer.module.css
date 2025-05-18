@@ -1,74 +1,84 @@
 .cart-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 40px;
   font-family: 'Nunito Sans', sans-serif;
-  position: relative; /* Esto permite que el botón "Volver" se posicione relativo a este contenedor */
+  background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente */
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  position: relative;
 }
 
 .cart-container h2 {
   text-align: center;
-  font-size: 34px;
+  font-size: 32px;
   color: #184C8B;
-  margin: 20px 0;
+  margin-bottom: 30px;
 }
 
 .cart-list {
-  margin-bottom: 30px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 20px;
 }
 
 .cart-item {
-  background-color: white;
-  border-radius: 15px;
-  padding: 25px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  font-size: 18px;
-  min-width: 160px;
-  min-height: 100px;
-}
-
-.cart-item p {
-  margin: 5px 0;
-  color: #555;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  text-align: center;
 }
 
 .cart-item strong {
+  display: block;
+  font-size: 18px;
   color: #184C8B;
+  margin-bottom: 8px;
+}
+
+.cart-item p {
+  margin: 4px 0;
+  color: #555;
 }
 
 .cart-total {
-  background-color: white;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  text-align: right;
-  width: 300px;
-  margin: 0 auto;
   margin-top: 40px;
+  text-align: center;
+  font-size: 20px;
+  color: #184C8B;
 }
 
 .confirm-button {
   background-color: #facc15;
   color: #1e3a8a;
   border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
+  padding: 12px 24px;
+  border-radius: 8px;
   font-weight: bold;
-  display: block;
-  margin: 20px auto 0;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.confirm-button:hover {
+  background-color: #eab308;
 }
 
 .back-button {
-  background-color: #eee;
-  border-radius: 5px;
-  cursor: pointer;
-  padding: 10px 20px;
-  font-weight: bold;
   position: absolute;
-  left: 20px;
   top: 20px;
+  left: 20px;
+  background-color: #eee;
+  color: #333;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.back-button:hover {
+  background-color: #ccc;
 }
