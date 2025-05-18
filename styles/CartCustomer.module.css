@@ -89,3 +89,32 @@
 .back-button:hover {
   background-color: #cba717;
 }
+
+.toast-message {
+  background-color: #2ecc71;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  margin-bottom: 15px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.remove-button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.remove-button:hover {
+  background-color: #c0392b;
+}
